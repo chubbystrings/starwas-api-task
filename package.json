@@ -13,10 +13,11 @@
     "build": "babel src --out-dir dist --copy-files",
     "clean": "rm -rf dist && mkdir dist",
     "start": "node dist/server.js",
-    "heroku-postbuild": "npm run clean && npm run build --prod",
+    "heroku-postbuild": "yarn run clean && npm run build --prod",
     "dev": "nodemon --exec babel-node -r dotenv/config src/server.js"
   },
   "dependencies": {
+    "@babel/runtime": "^7.15.3",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
