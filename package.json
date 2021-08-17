@@ -1,0 +1,41 @@
+{
+  "name": "starwarz-api",
+  "version": "1.0.0",
+  "description": "api for starwaz movies",
+  "main": "server.js",
+  "author": "emeka chubbystrings",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --no-cache --detectOpenHandles ./*",
+    "watch": "jest --no-cache --watch ./*",
+    "lint": "eslint src/  --fix",
+    "lint-test": "eslint . && jest --no-cache ./* ",
+    "build": "babel src --out-dir dist --copy-files",
+    "clean": "rm -rf dist && mkdir dist",
+    "start": "node dist/server.js",
+    "heroku-postbuild": "npm run clean && npm run build --prod",
+    "dev": "nodemon --exec babel-node -r dotenv/config src/server.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/plugin-syntax-bigint": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0"
+  }
+}
