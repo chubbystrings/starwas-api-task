@@ -35,11 +35,11 @@ export default {
   getCharacters: async (id) => {
     try {
       const result = await axios.get(`${URL}/${id}`);
-      const r = await Promise.all(result.data.characters.map(async (character) => {
+      const data = await Promise.all(result.data.characters.map(async (character) => {
         const res = await axios.get(character);
         return res.data;
       }));
-      return r;
+      return { characters: data, title: result.data.title };
     } catch (e) {
       throw Error('could not fetch data');
     }

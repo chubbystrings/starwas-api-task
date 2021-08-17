@@ -15,12 +15,16 @@ module.exports = {
       url: 'http://localhost:4500',
       description: 'Local server',
     },
+    {
+      url: 'https://starwars-api-task.herokuapp.com',
+      description: 'production server',
+    },
   ],
   paths: {
     '/api/v1/starwars': {
       get: {
         description: 'User can view all movies',
-        summary: 'User can fetch all movies, No authentication is required',
+        summary: 'An anonymous User can fetch all movies, No authentication is required',
         parameters: [],
         responses: {
           200: {
@@ -53,7 +57,7 @@ module.exports = {
     '/api/v1/starwars/{episode}/characters': {
       get: {
         description: 'User can view all characters of a particular movie',
-        summary: 'User can view information about characters of a particular episode, no authentication is required',
+        summary: ' An anonymous User can view information about characters of a particular episode, no authentication is required',
         parameters: [{
           name: 'episode',
           in: 'path',
@@ -111,7 +115,7 @@ module.exports = {
     '/api/v1/starwars/{episode}/comment': {
       get: {
         description: 'User can fetch all comments of a particular movie',
-        summary: 'User can view all comments related to a particular movie, no authentication is required',
+        summary: 'An anonymous User can view all comments related to a particular movie, no authentication is required',
         parameters: [{
           name: 'episode',
           in: 'path',
@@ -167,7 +171,7 @@ module.exports = {
       },
       post: {
         description: 'User can post a comments to a particular movie',
-        summary: 'User can post comments to a particular movie, no authentication is required',
+        summary: 'An anonymous User can post comments to a particular movie, no authentication is required',
         parameters: [{
           name: 'episode',
           in: 'path',
