@@ -25,4 +25,8 @@ yarn lint
 ### Customize configuration
 see .env-example for environment variables
 
-## [DOCUMENTATION](https://github.com/user/repo/blob/branch/other_file.md)
+## [VIEW DOCUMENTATION](https://documenter.getpostman.com/view/7803863/TzzALG8P)
+
+## [API PLAYGROUND](https://starwars-api-task.herokuapp.com/api-docs)
+
+*with love from chubbystrings*
