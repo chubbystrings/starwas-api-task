@@ -8,7 +8,6 @@ const connectionString = isTest
 
 const pool = new Pool({
   connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
-  ssl: isProduction,
 });
 
 export default pool;
