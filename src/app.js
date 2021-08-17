@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express from 'express';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
@@ -10,6 +11,7 @@ const app = express();
 // connect to database
 pool.query('SELECT NOW()', (err) => {
   if (err) {
+    console.log(err);
     throw Error('could not connect');
   }
   // eslint-disable-next-line no-console
