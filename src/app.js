@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import pool from './database/dbConnect';
 import routes from './routes/routes';
-import swaggerDocs from '../swaggerDocs';
+import swaggerDocs from './swagger/swaggerDocs';
 
 const app = express();
 

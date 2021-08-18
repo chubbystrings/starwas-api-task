@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/', starWarsController.getAllMovies);
 
+router.get('/:episode', starWarsController.getASingleMovie);
+
 router.get('/:episode/characters', starWarsController.getAllCharactersInAMovie);
 
 router.get('/:episode/comment', starWarsController.getAllCommentsInAMovie);
