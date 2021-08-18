@@ -30,9 +30,8 @@ see .env-example for environment variables
 ## [VIEW DOCUMENTATION](https://documenter.getpostman.com/view/7803863/TzzALG8P)
 
 ```
-Or play with our api real time
+Or play with our api real time [API PLAYGROUND](https://starwars-api-task.herokuapp.com/api-docs)
 ```
 
-## [API PLAYGROUND](https://starwars-api-task.herokuapp.com/api-docs)
 
 *with love from chubbystrings*
