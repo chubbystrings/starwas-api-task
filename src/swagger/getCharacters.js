@@ -13,6 +13,30 @@ const getAllCharacters = {
         minimum: 1,
       },
     },
+    {
+      name: 'sort',
+      in: 'query',
+      description: 'Sort Characters by name or Height',
+      schema: {
+        type: 'string',
+      },
+    },
+    {
+      name: 'gender',
+      in: 'query',
+      description: 'filter by gender male or female',
+      schema: {
+        type: 'string',
+      },
+    },
+    {
+      name: 'order',
+      in: 'query',
+      description: 'order by ascending or descending order',
+      schema: {
+        type: 'string',
+      },
+    },
     ],
     responses: {
       200: {

@@ -1,6 +1,7 @@
 import pool from '../database/dbConnect';
 import swapiApi from '../services/swapi';
 import Response from '../utils/response';
+import { rearrangeCharacters, convertCmToFtAndInches } from '../utils/utilityFuncs';
 
 const responseObj = new Response();
 
@@ -31,10 +32,6 @@ export default {
   getASingleMovie: async (req, res) => {
     try {
       const episode = +req.params.episode;
-      if (!episode) {
-        responseObj.setError(400, 'episode id is missing or incorrect');
-        return responseObj.send(res);
-      }
       const data = await swapiApi.getAMovie(episode);
       responseObj.setSuccess(200, 'successful', data);
       return responseObj.send(res);
@@ -50,13 +47,18 @@ export default {
 
   getAllCharactersInAMovie: async (req, res) => {
     const episode = +req.params.episode;
-    if (!episode) {
-      responseObj.setError(400, 'episode id is missing or incorrect');
-      return responseObj.send(res);
-    }
-
     try {
       const result = await swapiApi.getCharacters(episode);
+
+      const gender = req.query.gender || '';
+      const sortBy = req.query.sort || 'name';
+      const orderBy = req.query.order || 'desc';
+
+      result.characters = rearrangeCharacters(result.characters, sortBy, gender, orderBy);
+      result.totalNumberOfCharacters = result.characters.length;
+      const totalHeightOfCharacters = result.characters.map((c) => Number(c.height))
+        .reduce((a, b) => a + b);
+      result.totalHeightOfCharacters = `${totalHeightOfCharacters}cm ${convertCmToFtAndInches(totalHeightOfCharacters)}`;
 
       responseObj.setSuccess(200, 'successful', result);
       return responseObj.send(res);
@@ -72,12 +74,8 @@ export default {
 
   getAllCommentsInAMovie: async (req, res) => {
     const episode = +req.params.episode;
-    if (!episode) {
-      responseObj.setError(400, 'episode id is missing or incorrect');
-      return responseObj.send(res);
-    }
 
-    const query = 'SELECT * FROM comments WHERE episode_id=$1';
+    const query = 'SELECT * FROM comments WHERE episode_id=$1 ORDER BY created_on desc';
     try {
       const { rows } = await pool.query(query, [episode]);
 
@@ -95,21 +93,12 @@ export default {
 
   postComment: async (req, res) => {
     const { comment } = req.body;
-
-    if (!comment) {
-      responseObj.setError(400, 'cannot send empty comment');
-      return responseObj.send(res);
-    }
-
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const episode = +req.params.episode;
-    if (!episode) {
-      responseObj.setError(400, 'episode id is missing or incorrect');
-      return responseObj.send(res);
-    }
 
-    const query = 'INSERT INTO comments (episode_id, comment, created_on) VALUES ($1, $2, NOW()) returning *';
+    const query = 'INSERT INTO comments (episode_id, comment, address, created_on) VALUES ($1, $2, $3, NOW()) returning *';
     try {
-      const { rows } = await pool.query(query, [episode, comment]);
+      const { rows } = await pool.query(query, [episode, comment, ip]);
 
       responseObj.setSuccess(201, 'comment added successfully', rows[0]);
       return responseObj.send(res);
