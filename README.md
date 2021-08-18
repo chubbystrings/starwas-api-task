@@ -7,7 +7,7 @@ A simple API that allows anonymous users fetch star wars movie names, their open
 yarn 
 ```
 
-### Compiles and hot-reloads for development
+### Hot-reloads for development
 ```
 yarn dev
 ```
